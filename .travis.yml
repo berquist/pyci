@@ -1,0 +1,19 @@
+language: python
+python:
+  - 2.7
+  - 3.5
+before_install:
+  - sudo apt-get install gfortran
+  - sudo apt-get install libhdf5-serial-dev
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+  - git clone https://github.com/sunqm/pyscf.git
+  - export PYTHONPATH=$PWD:$PYTHONPATH
+  - cd pyscf/lib
+  - mkdir build; cd build
+  - cmake ..
+  - make
+# command to run tests
+script:
+  - py.test
